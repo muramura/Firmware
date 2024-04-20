@@ -53,7 +53,7 @@
 #elif defined(RAM_BASED_MISSIONS)
 #  define NUM_MISSIONS_SUPPORTED 500
 #else
-#  define NUM_MISSIONS_SUPPORTED 500
+#  define NUM_MISSIONS_SUPPORTED 1000
 #endif
 
 #define NAV_EPSILON_POSITION	0.001f	/**< Anything smaller than this is considered zero */
