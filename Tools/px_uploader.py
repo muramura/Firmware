@@ -445,7 +445,7 @@ class uploader:
                         uploader.EOC)
 
         # erase is very slow, give it 30s
-        deadline = _time() + 30.0
+        deadline = _time() + 50.0
         while _time() < deadline:
 
             usualEraseDuration = 15.0
@@ -573,7 +573,7 @@ class uploader:
         self.__drawProgressBar(label, 1, 100)
         expect_crc = fw.crc(self.fw_maxsize)
         self.__send(uploader.GET_CRC + uploader.EOC)
-        time.sleep(0.5)
+        time.sleep(10.5)
         report_crc = self.__recv_int()
         self.__getSync()
         if report_crc != expect_crc:
