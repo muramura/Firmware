@@ -98,6 +98,13 @@ void ToneAlarm::Run()
 		if (_tune_control_sub.copy(&tune_control)) {
 			if (tune_control.timestamp > 0) {
 				Tunes::ControlResult tune_result = _tunes.set_control(tune_control);
+				static int last_tune_id = -1;
+				static int last_result = 99;
+				if (last_tune_id != tune_control.tune_id && last_result != int(tune_result)) {
+					last_tune_id = tune_control.tune_id;
+					last_result = int(tune_result);
+					PX4_INFO("tune_id %d, result %d", tune_control.tune_id, int(tune_result));
+				}
 
 				switch (tune_result) {
 				case Tunes::ControlResult::Success:
