@@ -1402,13 +1402,12 @@ MavlinkMissionManager::parse_mavlink_mission_item(const mavlink_mission_item_t *
 
 		mission_item->altitude = mavlink_mission_item->z;
 
-		if (mavlink_mission_item->frame == MAV_FRAME_GLOBAL ||
-		    mavlink_mission_item->frame == MAV_FRAME_GLOBAL_INT) {
-			mission_item->altitude_is_relative = false;
-
-		} else if (mavlink_mission_item->frame == MAV_FRAME_GLOBAL_RELATIVE_ALT ||
-			   mavlink_mission_item->frame == MAV_FRAME_GLOBAL_RELATIVE_ALT_INT) {
+		mission_item->altitude_is_relative = false;
+		switch (mavlink_mission_item->frame) {
+		case MAV_FRAME_GLOBAL_RELATIVE_ALT:
+		case MAV_FRAME_GLOBAL_RELATIVE_ALT_INT:
 			mission_item->altitude_is_relative = true;
+			break;
 		}
 
 		// Depending on the received MAV_CMD_* (MAVLink Commands), assign the corresponding
@@ -1460,17 +1459,20 @@ MavlinkMissionManager::parse_mavlink_mission_item(const mavlink_mission_item_t *
 
 		case MAV_CMD_NAV_ROI:
 		case MAV_CMD_DO_SET_ROI:
-			if ((int)mavlink_mission_item->param1 == MAV_ROI_LOCATION) {
+			switch ((int)mavlink_mission_item->param1) {
+			case MAV_ROI_LOCATION:
 				mission_item->nav_cmd = NAV_CMD_DO_SET_ROI;
 				mission_item->params[0] = MAV_ROI_LOCATION;
 
 				mission_item->params[6] = mavlink_mission_item->z;
+				break;
 
-			} else if ((int)mavlink_mission_item->param1 == MAV_ROI_NONE) {
+			case MAV_ROI_NONE:
 				mission_item->nav_cmd = NAV_CMD_DO_SET_ROI;
 				mission_item->params[0] = MAV_ROI_NONE;
+				break;
 
-			} else {
+			default:
 				return MAV_MISSION_INVALID_PARAM1;
 			}
 
@@ -1555,12 +1557,14 @@ MavlinkMissionManager::parse_mavlink_mission_item(const mavlink_mission_item_t *
 
 		case MAV_CMD_NAV_ROI:
 		case MAV_CMD_DO_SET_ROI: {
-				const int roi_mode = mavlink_mission_item->param1;
-
-				if (roi_mode == MAV_ROI_NONE || roi_mode == MAV_ROI_WPNEXT || roi_mode == MAV_ROI_WPINDEX) {
+				switch (int(mavlink_mission_item->param1)) {  // roi_mode
+				case MAV_ROI_NONE:
+				case MAV_ROI_WPNEXT:
+				case MAV_ROI_WPINDEX:
 					mission_item->nav_cmd = NAV_CMD_DO_SET_ROI;
+					break;
 
-				} else {
+				default:
 					return MAV_MISSION_INVALID_PARAM1;
 				}
 			}
