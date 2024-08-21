@@ -420,14 +420,8 @@ void DatamanClient::update()
 bool DatamanClient::lastOperationCompleted(bool &success)
 {
 	bool completed = false;
-	success = false;
 
 	if (_state == State::ResponseReceived) {
-
-		if (_response_status == dataman_response_s::STATUS_SUCCESS) {
-			success = true;
-		}
-
 		_state = State::Idle;
 		completed = true;
 	}
