@@ -79,7 +79,7 @@ void LoggedTopics::add_default_topics()
 	add_optional_topic("heater_status");
 	add_topic("home_position");
 	add_topic("hover_thrust_estimate", 100);
-	add_topic("input_rc", 500);
+	add_topic("input_rc", 100);
 	add_optional_topic("internal_combustion_engine_status", 10);
 	add_optional_topic("iridiumsbd_status", 1000);
 	add_optional_topic("irlock_report", 1000);
@@ -118,7 +118,7 @@ void LoggedTopics::add_default_topics()
 	add_optional_topic("sensor_correction");
 	add_optional_topic("sensor_gyro_fft", 50);
 	add_topic("sensor_selection");
-	add_topic("sensors_status_imu", 200);
+	add_topic("sensors_status_imu", 100);
 	add_optional_topic("spoilers_setpoint", 1000);
 	add_topic("system_power", 500);
 	add_optional_topic("takeoff_status", 1000);
@@ -135,12 +135,12 @@ void LoggedTopics::add_default_topics()
 	add_topic("vehicle_command_ack");
 	add_topic("vehicle_constraints", 1000);
 	add_topic("vehicle_control_mode");
-	add_topic("vehicle_global_position", 200);
+	add_topic("vehicle_global_position", 100);
 	add_topic("vehicle_gps_position", 100);
 	add_topic("vehicle_land_detected");
 	add_topic("vehicle_local_position", 100);
 	add_topic("vehicle_local_position_setpoint", 100);
-	add_topic("vehicle_magnetometer", 200);
+	add_topic("vehicle_magnetometer", 100);
 	add_topic("vehicle_rates_setpoint", 20);
 	add_topic("vehicle_roi", 1000);
 	add_topic("vehicle_status");
@@ -182,18 +182,18 @@ void LoggedTopics::add_default_topics()
 	// log all raw sensors at minimal rate (at least 1 Hz)
 	add_topic_multi("battery_status", 200, 2);
 	add_topic_multi("differential_pressure", 1000, 2);
-	add_topic_multi("distance_sensor", 1000, 2);
-	add_optional_topic_multi("sensor_accel", 1000, 4);
-	add_optional_topic_multi("sensor_baro", 1000, 4);
-	add_topic_multi("sensor_gps", 1000, 2);
+	add_topic_multi("distance_sensor", 500, 2);
+	add_optional_topic_multi("sensor_accel", 100, 4);
+	add_optional_topic_multi("sensor_baro", 100, 4);
+	add_topic_multi("sensor_gps", 100, 2);
 	add_topic_multi("sensor_gnss_relative", 1000, 1);
-	add_optional_topic_multi("sensor_gyro", 1000, 4);
-	add_topic_multi("sensor_mag", 1000, 4);
+	add_optional_topic_multi("sensor_gyro", 100, 4);
+	add_topic_multi("sensor_mag", 100, 4);
 	add_topic_multi("sensor_optical_flow", 1000, 2);
 
-	add_topic_multi("vehicle_imu", 500, 4);
-	add_topic_multi("vehicle_imu_status", 1000, 4);
-	add_optional_topic_multi("vehicle_magnetometer", 500, 4);
+	add_topic_multi("vehicle_imu", 100, 4);
+	add_topic_multi("vehicle_imu_status", 100, 4);
+	add_optional_topic_multi("vehicle_magnetometer", 100, 4);
 	add_topic("vehicle_optical_flow", 500);
 	add_topic("aux_global_position", 500);
 	//add_optional_topic("vehicle_optical_flow_vel", 100);
